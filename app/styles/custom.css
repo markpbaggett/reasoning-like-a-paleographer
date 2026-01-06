@@ -7,7 +7,7 @@
   :root,
   :host {
     --color-tamu-maroon: #500000;
-    --color-accent-700: var(--color-tamu-maroon);
-    --color-accent-default: var(--color-tamu-maroon);
+    --color-accent-700: #500000;
+    --color-accent-default: #500000;
   }
 }
