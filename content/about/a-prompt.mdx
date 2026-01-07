@@ -1,0 +1,70 @@
+# The Digital Paleographer: The Prompt & Reasoning
+
+The accuracy and consistency of the transcriptions in this exhibit are governed by a specific set of instructions called a **System Prompt**. This prompt defines the AI's persona, its rules for interpretation, and its technical output constraints.
+
+---
+
+## 1. About the Prompt
+
+[The prompt](https://github.com/markpbaggett/iiif_paleography/blob/main/prompts/gemini-htr.md) is designed for high-fidelity extraction. It tells Gemini exactly how to handle the visual layout and
+historical nuances of the text.
+
+```
+**Role**: You are a professional transcriptionist specializing in high-accuracy document digitizing.
+
+**Task**: Transcribe all text from the attached image.
+
+### Guidelines:
+* **Reading Order**: Follow a natural top-to-bottom, left-to-right reading flow.
+* **Accuracy**: Preserve original spelling, punctuation, capitalization, and line breaks.
+* **Handwriting**: Interpret handwritten text accurately. Use `[?]` for uncertainty and `[illegible]` for unreadable text.
+* **Layout**: Maintain paragraph structures. Use `[Margin: text]` for floating notes.
+* **Non-Text Elements**: Label structural elements like `[Header]` and `[Signature]` using IIIF-approved HTML (`<p>`, `<span>`, `<b>`, etc.).
+
+### Constraints:
+* Provide **ONLY** the transcribed text. Do not include introductory remarks.
+
+```
+
+---
+
+## 2. Understanding the Commentary (AI Reasoning)
+
+While the transcription captures **what** is written, the **Commentary Annotation** explains **how** the AI decided to read it. In our exhibit, this is powered by a "Chain of Thought" process where Gemini verbalizes its internal logic.
+
+### How the Commentary is Generated
+The **IIIF Paleography** utility makes a second pass (or a combined request) asking the model to reflect on its work. It specifically looks for:
+* **Visual Justification:** "I identified this letter as an 'S' rather than an 'L' because of the distinct top loop consistent with the writer's previous pages."
+* **Contextual Inference:** "The word 'University' was partially obscured, but inferred based on the surrounding sentence structure and the document's provenance."
+* **Resolution of Ambiguity:** Explaining why a specific [?] was used or why a strike-through was ignored.
+
+### The IIIF Advantage: "Painting" vs. "Commenting"
+In the technical manifest, these two outputs are stored with different **Motivations** according to W3C Web Annotation standards:
+
+| Output | IIIF Motivation | Purpose |
+| :--- | :--- | :--- |
+| **Transcription** | `transcribing` | Intended to "transcribe" the visible text on the canvas as an overlay or searchable text layer. |
+| **Commentary** | `commenting` | Intended to provide scholarly context or explanation *about* the resource. |
+
+---
+
+## 3. The Results
+
+In order to visualize the transcription, we pass the manifest with the new annotations to a special IIIF Viewing component
+from [Clover]() called `Scroll`.
+
+This exposes  the reasoning and allows you to see the "Digital Paleographer" at work. If the AI misreads a word, the
+commentary often reveals a logical, albeit incorrect, path just as a human student might misinterpret a letter or
+punctuation mark. This provides a layer of metadata that helps human researchers validate the machine's work.
+
+<Scroll
+    iiifContent="https://tamulib-dc-labs.github.io/custom-iiif-manifests/manifests/mcinnis/mcinnis-218.json"
+    options={{
+      offset: 16,
+      figure: {
+        aspectRatio: 1,
+        display: "thumbnail",
+        width: "200px",
+      },
+    }}
+  />

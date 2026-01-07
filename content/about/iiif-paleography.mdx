@@ -1,0 +1,52 @@
+# The Engine: IIIF Paleography
+
+The core of this exhibit is powered by [**IIIF Paleography**](https://github.com/markpbaggett/iiif_paleography), an
+open-source utility developed to make displaying the transcription and the reasoning easy.
+
+While [IIIF](https://iiif.io/) (International Image Interoperability Framework) provides a powerful way to deliver high-resolution images,
+it does not inherently "know" what is written on them. This tool acts as the translator.
+
+---
+
+## What is IIIF Paleography?
+
+[IIIF Paleography](https://github.com/markpbaggett/iiif_paleography) is a Python-based utility designed to automate the
+transcription and analysis of historical documents. It interacts with the [**IIIF Presentation API**](https://iiif.io/api/presentation/3.0/)
+to fetch document manifests, extract their individual canvases, and process them through the **Google Gemini API**.
+
+### The Technical Workflow
+
+1.  **Manifest Ingestion**: The utility accepts a IIIF Manifest URL (e.g., a letter from a Texas A&M President).
+2.  **Canvas Processing**: It iterates through every page (canvas) in the manifest.
+3.  **AI Orchestration**: It sends the high-resolution image link to Google Gemini along with a highly tuned [System Prompt](https://github.com/markpbaggett/iiif_paleography/blob/main/prompts/gemini-htr.md).
+4.  **Annotation Generation**: It receives two types of data back from the AI:
+    * **Transcript**: The literal text.
+    * **Commentary**: The reasoning behind the transcription.
+5.  **Standardized Output**: The utility packages these results into **W3C Web Annotations**, making them compatible with modern IIIF viewers like Clover, Theseus Mirador, or Universal Viewer.
+
+---
+
+## Key Features
+
+### Standards-Compliant Output
+
+By generating valid **IIIF Annotation Pages**, the utility ensures that the transcriptions aren't just stuck in a text
+file. They are tethered to the specific image coordinates, allowing for features like:
+
+* Searchable text overlays.
+* Side-by-side view of original ink and digital text.
+* Accessibility support for screen readers.
+
+### Semantic Markup
+Unlike basic OCR (Optical Character Recognition), this utility instructs the AI to use semantic HTML tags allowed by the
+IIIF spec (such as `<p>`, `<span>`, and `<b>`). This preserves the structural integrity of the letter—distinguishing
+between the body of the text, signatures, and marginalia.
+
+### Automated Reasoning
+The utility specifically requests the "Chain of Thought" reasoning that powers our **Commentary** section. This feature
+is what transforms the tool from a simple transcriber into a digital paleographer.
+
+---
+
+### Integration in this Exhibit
+In this exhibit, we have used this utility to process the collections of Texas A&M's early presidents. Every transcription you see was generated using this pipeline, demonstrating a scalable way to bring "dark archives" into the light of the digital age.

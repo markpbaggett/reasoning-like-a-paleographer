@@ -1,79 +1,60 @@
 ---
 title: About
-description: Canopy IIIF makes easy the creation of digital projects for libraries, archives, and museums. Created by Mat Jordan and Mark Baggett.
-image: https://iiif.dc.library.northwestern.edu/iiif/3/138a94b0-175a-4152-98c7-df58661ce7d5/950,520,7100,4740/!1200,630/0/default.jpg
-referencedManifests:
-  - https://api.dc.library.northwestern.edu/api/v2/works/4bdb5a22-6c7f-498d-8e6e-e49ea9bc4778?as=iiif
-  - https://api.dc.library.northwestern.edu/api/v2/works/c26591b2-994b-4ba3-a87e-9124419fa91b?as=iiif
-  - https://api.dc.library.northwestern.edu/api/v2/works/d4c62d7f-f50d-4b29-85e0-5d380675bec7?as=iiif
+description:
+This exhibit demonstrates how artificial intelligence can be used to transcribe historic handwritten letters through Handwritten Text Recognition (HTR). By revealing the model’s reasoning process, it shows how closely AI interpretation mirrors the trained eye of a paleographer.
+image: https://api-pre.library.tamu.edu/iiif/2/5349c9b2-c7d0-3b9c-a6d5-7a3adeb698e2/full/2257,3688/0/default.jpg
+
 ---
 
-import {CanopyDiagram} from "@canopy-iiif/app/ui/server";
+# About the Project
 
-# About
+### Bridging the Gap Between Ink and Digital Text
 
-Using [IIIF Presentation Collection(s)](https://iiif.io/api/presentation/3.0/#overview-collection) as a data source, Canopy IIIF (Canopy) generates a scholarly digital projects platform that transforms provided digital collections into an accessible, discoverable research environment. Built on modern web standards and leveraging the interoperability of IIIF, Canopy creates static sites that extend existing IIIF resources while providing advanced localized search capabilities, contextual navigation, and customizable presentation layers.
+For decades, the personal correspondence of Texas A&M’s earliest leaders remained locked behind the beautiful but difficult cursive of the 19th and early 20th centuries. While digitization has made these letters available as images, the "data" within them—the names, the struggles of a burgeoning university, and the nuances of campus life—remained largely unsearchable and inaccessible to modern screen readers.
 
-<ButtonWrapper variant="interstitial" text="Have an idea for a project?">
-  <Button href="/about/get-started" label="Get started" />
+**Using AI to Read Historic Letters** is an experimental digital exhibit that explores how **Handwritten Text Recognition (HTR)** can unlock these archives. By leveraging the **Google Gemini** multimodal model, we transform static images into dynamic, searchable, and interpreted text.
+
+---
+
+### The Vision: Transparency in Transcription
+
+Traditional AI HTR transcription often operated as a "black box"; a user provided an image, and the model provided text
+with little explanation of how it arrived at its conclusion. Occassioanally, the model may *hallucinate* leading to poor
+results and mistrust.
+
+**AI Reasoning**, or using multiple models in a feedback loop, results in amazing results and according to
+[an article by Dan Cohen](https://newsletter.dancohen.org/archive/the-writing-is-on-the-wall-for-handwriting-recognition/),
+performs transcription the same way you are "taught to do in a paleography class."
+
+By utilizing the [**IIIF Paleography**](https://github.com/markpbaggett/iiif_paleography) utility, we ask the AI to
+perform two distinct tasks for every letter:
+
+1.  **Transcribe:** Create a highly accurate, marked-up version of the text with minor structural markup.
+2.  **Rationalize:** Provide a "commentary" annotation that explains why certain words were chosen, how the model handled difficult handwriting, and how it utilized historical context to fill in the blanks.
+
+
+### Our Methodology
+
+This exhibit is powered by three core pillars:
+
+* **The Archive:** IIIF manifests of original letters from the Texas A&M University AMC Early President collections.
+* **The Standard:** The [**International Image Interoperability Framework (IIIF)**](https://iiif.io/), which allows us to serve high-resolution images and attach annotations directly to each page.
+* **The Intelligence:** Large Language Models (LLMs) acting as a "digital paleographer" to interpret the unique flourishes and abbreviations of historical script.
+
+---
+
+### Why This Matters
+
+This project isn't just about speed; it's about **accuracy and trust.** By revealing the reasoning process, we allow
+libarians, archivists, historians, students, and archivists to see where the AI excels and where it might struggle. This
+dialogue between human expertise and machine learning paves the way for a future where historical archives are more
+accessible, inclusive, and deeply understood.
+
+<ButtonWrapper variant="interstitial" text="Want to Learn More?">
+  <Button href="/about/prompt" label="About the Prompt" />
   <Button
     href="https://canopy-iiif.github.io/app/docs/"
-    label="Read documentation"
+    label="About the Exhibit Layer"
     variant="secondary"
   />
 </ButtonWrapper>
-
-## Overview
-
-Picture two source IIIF collections with digitized items relating to a famous author: **Collection A** providing _70 manifests_ and **Collection B** contributing _35 more_. A team is tasked with building out a unified digital project for these items that allows users to browse their content, as well aso interact with contextual essays, timelines, and maps. By using Canopy, impementers can quickly stand-up a working projecty with every manifest becoming its own work page, authored Markdown files providing context, and both streams feeding a shared search index before everything is written out to static HTML, CSS, and data assets. The diagram below walks through that pipeline so you can see how these raw manifests become a ready-to-host digital project.
-
-<CanopyDiagram />
-
-Comprehensive [documentation](https://canopy-iiif.github.io/app/docs/) is integrated into the application and serves as both a development guide and a demonstration of Canopy's potential for digital scholarship and humanities projects. To highlight what Canopy can do, this paragraph is authored in markdown from [a simple text file](https://github.com/canopy-iiif/template/blob/main/content/about/index.mdx?plain=1) and below is an example of an `<Image>` component rendering a IIIF image resource along with an inline annotation and caption. This same image is provided by Northwestern University Libraries as a [IIIF Manifest](https://api.dc.library.northwestern.edu/api/v2/works/4bdb5a22-6c7f-498d-8e6e-e49ea9bc4778?as=iiif) from their [Digital Collections platform](https://dc.library.northwestern.edu/items/4bdb5a22-6c7f-498d-8e6e-e49ea9bc4778) and [aggregated into this project](https://canopy-iiif.github.io/app/works/the-town-and-pass-of-boondi-in-rajpootana.html) as a static page during the Canopy build process.
-
-<Image
-  src="https://iiif.dc.library.northwestern.edu/iiif/3/138a94b0-175a-4152-98c7-df58661ce7d5"
-  isTiledImage={true}
-  height="500px"
-  alt="Painting of the The town & pass of Boondi, in Rajpootana"
-  caption="The town & pass of Boondi, in Rajpootana - Situated on a southern slope of a hill at the end of a long range, the town of Boondi was the capital of the Rajput principality of that name. The palace of the Raja is a large masonry stone building about half way up the hill, according to Grindlay, with a kind of fortification extending to the top."
-  annotations={[
-        {
-          annotation: {
-            id: "https://iiif.dc.library.northwestern.edu/iiif/3/f7409acd-e3f9-496a-b733-81f46d4ffa4f/annotation/0",
-            type: "Annotation",
-            motivation: ["tagging"],
-            body: [
-              {
-                id: "https://iiif.dc.library.northwestern.edu/iiif/3/f7409acd-e3f9-496a-b733-81f46d4ffa4f/annotation/0/body/0",
-                type: "TextualBody",
-                value: "Five individuals traveling.",
-              },
-            ],
-            target: {
-              type: "SpecificResource",
-              source: {
-                id: "https://iiif.dc.library.northwestern.edu/iiif/3/f7409acd-e3f9-496a-b733-81f46d4ffa4f/canvas/1",
-                type: "Canvas",
-              },
-              selector: {
-                type: "FragmentSelector",
-                value: "xywh=1900,4050,1500,1000",
-              },
-            },
-          },
-          targetIndex: 0,
-        }
-      ]}
-
-/>
-
-As authors create content using Markdown, they can reference the source material directly within the text using the `<ReferencedItems />` component below. This component dynamically generates a list of all IIIF Manifests that have been explicitly referenced within the markdown content of the page.
-
-<ReferencedItems />
-
-## Colophon
-
-Canopy was created by [Mat Jordan](https://github.com/mathewjordan) _(Northwestern University)_ and [Mark Baggett](https://github.com/markpbaggett) _(Texas A&M University)_ as a method to quickly build exhibit style digital humanities projects that extend existing digital collections using IIIF Collections and Manifests. It continues to be an active open-source initiative of [Northwestern University Libraries](https://www.library.northwestern.edu/), where it supports digital scholarship in many forms. This example site is built from the [Donald K. Adams and Lawrence D. Stewart Collection of Prints](https://dc.library.northwestern.edu/collections/94536627-cfdf-413c-852b-0cb16d986da3) and the [Indian Paintings on Mica](https://dc.library.northwestern.edu/collections/7ac5769f-a1d9-4227-a350-bf8bd8b1cddc) collection hosted by Northwestern University Libraries' [Digital Collections](https://dc.library.northwestern.edu/).
-
-Canopy uses the [IIIF Presentation API](https://iiif.io/api/presentation/3.0/) to deliver rich media from providing institutions, [Markdown as MDX](https://mdxjs.com/) for authoring contextual content and layout, [TailwindCSS](https://tailwindcss.com/) for the user interface, and a static [FlexSearch](https://github.com/nextapps-de/flexsearch) index for search. Easy aggregation and retrieval of IIIF resources is made possible by the [IIIF helpers](https://github.com/IIIF-Commons/iiif-helpers) developed by [Stephen Fraser](https://github.com/stephenwf). In addition, [Clover IIIF](https://github.com/samvera-labs/clover-iiif), developed by Northwestern University Libraries with contributions from other institutions, is integral to Canopy and provides the rendering of IIIF resources, annotations, and metadata throughout the interface.
