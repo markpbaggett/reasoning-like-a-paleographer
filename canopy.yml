@@ -5,6 +5,8 @@ metadata:
   - date
 featured:
   - https://tamulib-dc-labs.github.io/custom-iiif-manifests/manifests/mcinnis/mcinnis-218.json
+  - https://tamulib-dc-labs.github.io/custom-iiif-manifests/manifests/mcinnis/mcinnis-122.json
+  - https://tamulib-dc-labs.github.io/custom-iiif-manifests/manifests/mcinnis/mcinnis-68.json
 search:
   results:
     work:
