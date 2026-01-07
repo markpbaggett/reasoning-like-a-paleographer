@@ -23,8 +23,8 @@ search:
       enabled: true
       motivation:
         - commenting
-        - tagging
+        - transcribing
 theme:
   appearance: light
-  accentColor: indigo
+  accentColor: red
   grayColor: slate
