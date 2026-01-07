@@ -28,5 +28,5 @@ search:
         - transcribing
 theme:
   appearance: light
-  accentColor: red
+  accentColor: cyan
   grayColor: slate
