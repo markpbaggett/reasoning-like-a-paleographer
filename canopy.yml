@@ -1,8 +1,9 @@
 collection:
   - https://tamulib-dc-labs.github.io/custom-iiif-manifests/collections/mcinnis-reasoning.json
 metadata:
-  - isPartOf
-  - date
+  - Subjects
+  - Creators
+  - Contributors
 featured:
   - https://tamulib-dc-labs.github.io/custom-iiif-manifests/manifests/mcinnis/mcinnis-218.json
   - https://tamulib-dc-labs.github.io/custom-iiif-manifests/manifests/mcinnis/mcinnis-122.json
