@@ -6,8 +6,8 @@ The accuracy and consistency of the transcriptions in this exhibit are governed 
 
 ## 1. About the Prompt
 
-[The prompt](https://github.com/markpbaggett/iiif_paleography/blob/main/prompts/gemini-htr.md) is designed for high-fidelity extraction. It tells Gemini exactly how to handle the visual layout and
-historical nuances of the text.
+[The prompt](https://github.com/markpbaggett/iiif_paleography/blob/main/prompts/gemini-htr.md) is designed for high-fidelity
+extraction. It tells Gemini exactly how to handle the visual layout and historical nuances of the text.
 
 ```
 **Role**: You are a professional transcriptionist specializing in high-accuracy document digitizing.
@@ -30,7 +30,8 @@ historical nuances of the text.
 
 ## 2. Understanding the Commentary (AI Reasoning)
 
-While the transcription captures **what** is written, the **Commentary Annotation** explains **how** the AI decided to read it. In our exhibit, this is powered by a "Chain of Thought" process where Gemini verbalizes its internal logic.
+While the transcription captures **what** is written, the **Commentary Annotation** explains **how** the AI decided to
+read it. In our exhibit, this is powered by a "Chain of Thought" process where Gemini verbalizes its internal logic.
 
 ### How the Commentary is Generated
 The **IIIF Paleography** utility makes a second pass (or a combined request) asking the model to reflect on its work. It specifically looks for:
@@ -50,7 +51,8 @@ In the technical manifest, these two outputs are stored with different **Motivat
 
 ## 3. Inside the Annotations
 
-Each annotation in the manifest follows the W3C Web Annotation model. The annotations carry two distinct groups of properties: **provenance metadata** on the annotation itself, and **content properties** on the `body`.
+Each annotation in the manifest follows the W3C Web Annotation model. The annotations carry two distinct groups of
+properties: **provenance metadata** on the annotation itself, and **content properties** on the `body`.
 
 ### Provenance properties (on the annotation)
 
@@ -61,7 +63,8 @@ Each annotation in the manifest follows the W3C Web Annotation model. The annota
 | `generator` | `iiif-paleography@v0.1.0` | The software tool that produced the annotation |
 | `creator` | `gemini-3-pro-preview` | The AI model that authored the content |
 
-Together, `generator` and `creator` record the full provenance chain: the Python utility that orchestrated the process and the underlying model that did the reasoning.
+Together, `generator` and `creator` record the full provenance chain: the Python utility that orchestrated the process
+and the underlying model that did the reasoning.
 
 ### Body properties (the content)
 
@@ -76,18 +79,23 @@ The annotation `body` carries four properties that determine how a viewer render
 
 ### Transcription bodies (`motivation: transcribing`)
 
-The transcription bodies use `"format": "text/html"` and `"language": "en"`. The `value` is structured HTML — `<p>` tags for paragraphs, `<br>` for original line breaks, and `<small>` for marginal point values — preserving the document's visual layout as markup rather than flattening it to plain text.
+The transcription bodies use `"format": "text/html"` and `"language": "en"`. The `value` is structured HTML — `<p>`
+tags for paragraphs, `<br>` for original line breaks, and `<small>` for marginal point values — preserving the
+document's visual layout as markup rather than flattening it to plain text.
 
 ### Commentary bodies (`motivation: commenting`)
 
-The commentary bodies use `"format": "text/markdown"` and `"language": "none"`. The `value` contains the AI's chain-of-thought in Markdown prose — bold headings, bullet points, and inline emphasis — written in the AI's own voice as it works through the handwriting. The `"none"` language tag reflects that this is generated interpretive text rather than a language-declared human-authored transcription.
+The commentary bodies use `"format": "text/markdown"` and `"language": "none"`. The `value` contains the AI's
+chain-of-thought in Markdown prose — bold headings, bullet points, and inline emphasis — written in the AI's own voice
+as it works through the handwriting. The `"none"` language tag reflects that this is generated interpretive text rather
+than a language-declared human-authored transcription.
 
 ---
 
 ## 4. The Results
 
 In order to visualize the transcription, we pass the manifest with the new annotations to a special IIIF Viewing component
-from [Clover]() called `Scroll`.
+from [Clover](https://github.com/samvera-labs/clover-iiif/) called `Scroll`.
 
 This exposes  the reasoning and allows you to see the "Digital Paleographer" at work. If the AI misreads a word, the
 commentary often reveals a logical, albeit incorrect, path just as a human student might misinterpret a letter or
